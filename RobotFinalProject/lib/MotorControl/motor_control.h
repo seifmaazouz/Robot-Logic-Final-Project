@@ -1,10 +1,6 @@
 #ifndef MOTOR_CONTROL_H
 #define MOTOR_CONTROL_H
 
-#include <Arduino.h>
-#include "setup_config.h"
-#include "pins.h"
-
 enum Direction {
     STOP = 0,
     FORWARD = 1,

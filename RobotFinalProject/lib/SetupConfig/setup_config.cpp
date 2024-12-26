@@ -1,4 +1,6 @@
+#include <Arduino.h>
 #include "setup_config.h"
+#include "pins.h"
 
 void initPins() {
     // Motor pin configuration

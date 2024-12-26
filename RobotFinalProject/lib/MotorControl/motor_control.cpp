@@ -1,4 +1,6 @@
+#include <Arduino.h>
 #include "motor_control.h"
+#include "pins.h"
 
 /*** Wheel Direction ***/
 // Forward: IN1 = HIGH, IN2 = LOW
