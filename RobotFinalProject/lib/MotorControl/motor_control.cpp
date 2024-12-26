@@ -29,6 +29,16 @@ void move(Direction direction) {
     }
 }
 
+void moveWheels (bool left_dir, int left_pwm, bool right_dir, int right_pwm) {
+    digitalWrite(MOTOR_LEFT_IN1, left_dir);
+    digitalWrite(MOTOR_LEFT_IN2, ! left_dir);
+    analogWrite (MOTOR_LEFT_PWM, left_pwm);
+    
+    digitalWrite(MOTOR_RIGHT_IN1, right_dir);
+    digitalWrite(MOTOR_RIGHT_IN2, ! right_dir);
+    analogWrite (MOTOR_LEFT_PWM, right_pwm);
+}
+
 // Both wheels move forward
 void moveForward() {
     digitalWrite(MOTOR_LEFT_IN1, HIGH);
