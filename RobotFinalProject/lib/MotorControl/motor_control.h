@@ -12,12 +12,9 @@ enum Direction {
     RIGHT = 4
 };
 
+void setupMotors();
 void setMotorsSpeed(int leftSpeed, int rightSpeed);
-void move(int speed, Direction direction);
-void moveForward();
-void moveBackward();
-void turnLeft();
-void turnRight();
-void stop();
+void move(int leftSpeed, int rightspeed, Direction direction);
+void stopMotors();
 
 #endif

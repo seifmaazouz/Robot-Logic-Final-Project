@@ -9,7 +9,7 @@ void setupMotors() {
     ledcSetup(MOTOR_RIGHT_CHANNEL, PWM_FREQ, PWM_RES);
     ledcAttachPin(MOTOR_RIGHT_PWM, MOTOR_RIGHT_CHANNEL);
 
-    stop();
+    stopMotors();
 }
 
 /*** Wheel Direction ***/
@@ -21,72 +21,41 @@ void setMotorsSpeed(int leftSpeed, int rightSpeed) {
     ledcWrite(MOTOR_RIGHT_CHANNEL, rightSpeed);
 }
 
-void move(int speed, Direction direction) {
+void move(int leftSpeed, int rightspeed, Direction direction) {
+    int leftDir = LOW, rightDir = LOW;
+
     switch (direction) {
         case FORWARD:
-            moveForward();
+            leftDir = HIGH;
+            rightDir = HIGH;
             break;
         case BACKWARD:
-            moveBackward();
+            leftDir = LOW;
+            rightDir = LOW;
             break;
         case LEFT:
-            turnLeft();
+            leftDir = LOW;
+            rightDir = HIGH;
             break;
         case RIGHT:
-            turnRight();
+            leftDir = HIGH;
+            rightDir = LOW;
             break;
-        default:
-            stop();
-            break;
+        case STOP:
+            stopMotors();
+            return;
     }
-    setMotorsSpeed(speed, speed);
+
+    digitalWrite(MOTOR_LEFT_IN1, leftDir);
+    digitalWrite(MOTOR_LEFT_IN2, ! leftDir);
+    digitalWrite(MOTOR_RIGHT_IN1, rightDir);
+    digitalWrite(MOTOR_RIGHT_IN2, ! rightDir);
+
+    setMotorsSpeed(leftSpeed, rightspeed);
 }
 
-void moveWheels (bool left_dir, int left_pwm, bool right_dir, int right_pwm) {
-    digitalWrite(MOTOR_LEFT_IN1, left_dir);
-    digitalWrite(MOTOR_LEFT_IN2, ! left_dir);
-    
-    digitalWrite(MOTOR_RIGHT_IN1, right_dir);
-    digitalWrite(MOTOR_RIGHT_IN2, ! right_dir);
-
-    setMotorsSpeed(left_pwm, right_pwm);
-}
-
-// Both wheels move forward
-void moveForward() {
-    digitalWrite(MOTOR_LEFT_IN1, HIGH);
-    digitalWrite(MOTOR_LEFT_IN2, LOW);
-    digitalWrite(MOTOR_RIGHT_IN1, HIGH);
-    digitalWrite(MOTOR_RIGHT_IN2, LOW);
-}
-
-// Both wheels move backward
-void moveBackward() {
-    digitalWrite(MOTOR_LEFT_IN1, LOW);
-    digitalWrite(MOTOR_LEFT_IN2, HIGH);
-    digitalWrite(MOTOR_RIGHT_IN1, LOW);
-    digitalWrite(MOTOR_RIGHT_IN2, HIGH);
-}
-
-// Left wheel move backward, right wheel move forward
-void turnLeft() {
-    digitalWrite(MOTOR_LEFT_IN1, LOW);
-    digitalWrite(MOTOR_LEFT_IN2, HIGH);
-    digitalWrite(MOTOR_RIGHT_IN1, HIGH);
-    digitalWrite(MOTOR_RIGHT_IN2, LOW);
-}
-
-// Left wheel move forward, right wheel move backward
-void turnRight() {
-    digitalWrite(MOTOR_LEFT_IN1, HIGH);
-    digitalWrite(MOTOR_LEFT_IN2, LOW);
-    digitalWrite(MOTOR_RIGHT_IN1, LOW);
-    digitalWrite(MOTOR_RIGHT_IN2, HIGH);
-}
-
-void stop() {
+void stopMotors() {
     setMotorsSpeed(0, 0);
-
     digitalWrite(MOTOR_LEFT_IN1, LOW);
     digitalWrite(MOTOR_LEFT_IN2, LOW);
     digitalWrite(MOTOR_RIGHT_IN1, LOW);
