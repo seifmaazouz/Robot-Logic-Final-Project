@@ -3,6 +3,17 @@
 #include "pins.h"
 #include <Ultrasonic.h>
 
+float ultrasonicRightDistance = 0.0;
+float ultrasonicFrontDistance = 0.0;
+float irSensorLeftReading = 0.0;
+float irSensorCenterReading = 0.0;
+float irSensorRightReading = 0.0;
+float lightSensorReading = 0.0;
+float smokeSensorReading = 0.0;
+
+// Ultrasonic ultrasonicSensorRight(ULTRASONIC_RIGHT_TRIGGER, ULTRASONIC_RIGHT_ECHO);
+Ultrasonic ultrasonicSensorFront(ULTRASONIC_FRONT_TRIGGER, ULTRASONIC_FRONT_ECHO);
+
 // Function to read all sensors
 void readAllSensors() {
     readInfraredSensors();
@@ -13,17 +24,15 @@ void readAllSensors() {
 
 // Function to read IR sensors
 void readInfraredSensors() {
-    irSensorLeftReading = digitalRead(IR_SENSOR_LEFT);
-    irSensorCenterReading = digitalRead(IR_SENSOR_CENTER);
-    irSensorRightReading = digitalRead(IR_SENSOR_RIGHT);
+    irSensorLeftReading = analogRead(IR_SENSOR_LEFT);
+    irSensorCenterReading = analogRead(IR_SENSOR_CENTER);
+    irSensorRightReading = analogRead(IR_SENSOR_RIGHT);
 }
 
-// Function to read ultrasonic sensors
+
+
 void readUltrasonicSensors() {
-    Ultrasonic ultrasonicSensorRight(ULTRASONIC_RIGHT_TRIGGER, ULTRASONIC_RIGHT_ECHO);
-    Ultrasonic ultrasonicSensorFront(ULTRASONIC_FRONT_TRIGGER, ULTRASONIC_FRONT_ECHO);
-    
-    ultrasonicRightDistance = ultrasonicSensorRight.read();
+    // ultrasonicRightDistance = ultrasonicSensorRight.read();
     ultrasonicFrontDistance = ultrasonicSensorFront.read();
 }
 
@@ -34,5 +43,5 @@ void readLightSensor() {
 
 // Function to read smoke sensor
 void readSmokeSensor() {
-    smokeSensorReading = digitalRead(SMOKE_PIN);
+    smokeSensorReading = analogRead(SMOKE_PIN);
 }

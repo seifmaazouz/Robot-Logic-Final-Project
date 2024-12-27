@@ -7,14 +7,12 @@ void readUltrasonicSensors();
 void readLightSensor();
 void readSmokeSensor();
 
-int irSensorLeftReading = 0;
-int irSensorCenterReading = 0;
-int irSensorRightReading = 0;
-
-int ultrasonicRightDistance = 0;
-int ultrasonicFrontDistance = 0;
-
-int lightSensorReading = 0;
-int smokeSensorReading = 0;
+extern float irSensorLeftReading;
+extern float irSensorCenterReading;
+extern float irSensorRightReading;
+extern float ultrasonicRightDistance;
+extern float ultrasonicFrontDistance;
+extern float lightSensorReading;
+extern float smokeSensorReading;
 
 #endif
