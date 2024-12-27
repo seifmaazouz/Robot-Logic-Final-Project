@@ -26,7 +26,7 @@
 
 /**** Other Components (LDR, LED, BUZZER, SMOKE) ****/
 #define LDR_PIN 10
-#define LED_PIN 9
+// #define LED_PIN 9
 #define BUZZER_PIN 13
 #define SMOKE_PIN 25
 

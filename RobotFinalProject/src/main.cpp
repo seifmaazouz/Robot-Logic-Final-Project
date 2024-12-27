@@ -14,6 +14,29 @@ void setup() {
 }
 
 void loop() {
+  readLightSensor();
+  readSmokeSensor();
+  readUltrasonicSensors();
+
+  // Feature: scared of darkness
+  if (lightSensorReading == 1) {
+    tone(BUZZER_PIN, 3000);
+  }
+  
+
+  // Feature: smoke detection
+  else if (smokeSensorReading > smoke_thresh) {
+    tone(BUZZER_PIN, 3500);
+  }
+
+else if (ultrasonicFrontDistance < MAX_DISTANCE) {
+        int frequency = map(ultrasonicFrontDistance, 0, MAX_DISTANCE, 2000, 500);
+        tone(BUZZER_PIN, frequency);
+} else {
+    noTone(BUZZER_PIN);
+}
+    
+
   if (SerialBT.available()) {
     rec = (String)SerialBT.readStringUntil('\n');
     Serial.println(rec);  
@@ -49,4 +72,9 @@ void loop() {
   // Serial.print (" ");
   // Serial.print (irSensorRightReading);
   // Serial.println (" ");
+
+  // Serial.print("Right Distance: ");
+  // Serial.println(ultrasonicRightDistance);
+  // Serial.print("Front Distance: ");
+  // Serial.println(ultrasonicFrontDistance);
 }

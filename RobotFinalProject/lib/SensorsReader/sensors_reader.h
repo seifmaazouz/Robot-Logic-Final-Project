@@ -1,6 +1,9 @@
 #ifndef SENSORS_READER_H
 #define SENSORS_READER_H
 
+// #include <Ultrasonic.h>
+#include <NewPing.h>
+
 void readAllSensors();
 void readInfraredSensors();
 void readUltrasonicSensors();
@@ -14,5 +17,9 @@ extern float ultrasonicRightDistance;
 extern float ultrasonicFrontDistance;
 extern float lightSensorReading;
 extern float smokeSensorReading;
+
+extern NewPing ultrasonicSensorFront;
+// extern Ultrasonic ultrasonicSensorFront;
+// extern Ultrasonic ultrasonicSensorRight;
 
 #endif
