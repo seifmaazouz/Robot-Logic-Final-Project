@@ -2,6 +2,6 @@
 #define SETUP_CONFIG_H
 
 void initPins();
-void setupMotors();
+void calibrateIRSensors();
 
 #endif

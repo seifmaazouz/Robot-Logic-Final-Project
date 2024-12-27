@@ -8,19 +8,27 @@ void setup() {
 }
 
 void loop() {
-  move(100, FORWARD);
+  move(100, 100, FORWARD);
+  delay(2000);
+
+  stopMotors();
   delay(1000);
-  stop();
+
+  move(100, 100, BACKWARD);
+  delay(2000);
+
+  stopMotors();
   delay(1000);
-  move(100, BACKWARD);
+
+  move(100, 100, RIGHT);
+  delay(2000);
+
+  stopMotors();
   delay(1000);
-  stop();
-  delay(1000);
-  move(100, RIGHT);
-  delay(1000);
-  stop();
-  delay(1000);
-  move(100, LEFT);
-  stop();
+
+  move(100, 100, LEFT);
+  delay(2000);
+  
+  stopMotors();
   delay(1000);
 }

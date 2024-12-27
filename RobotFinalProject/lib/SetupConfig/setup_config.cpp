@@ -27,3 +27,7 @@ void initPins() {
     pinMode(BUZZER_PIN, OUTPUT);
     pinMode(SMOKE_PIN, INPUT);
 }
+
+void calibrateIRSensors() {
+    // TODO
+}
