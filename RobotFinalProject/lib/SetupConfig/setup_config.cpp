@@ -4,11 +4,9 @@
 
 void initPins() {
     // Motor pin configuration
-    pinMode(MOTOR_LEFT_PWM, OUTPUT);
     pinMode(MOTOR_LEFT_IN1, OUTPUT);
     pinMode(MOTOR_LEFT_IN2, OUTPUT);
 
-    pinMode(MOTOR_RIGHT_PWM, OUTPUT);
     pinMode(MOTOR_RIGHT_IN1, OUTPUT);
     pinMode(MOTOR_RIGHT_IN2, OUTPUT);
 
@@ -24,9 +22,8 @@ void initPins() {
     pinMode(ULTRASONIC_FRONT_TRIGGER, OUTPUT);
     pinMode(ULTRASONIC_FRONT_ECHO, INPUT);
 
-    // Configure Other Components (LDR, LED, BUZZER, SMOKE)
+    // Configure Other Components (LDR, BUZZER, SMOKE)
     pinMode(LDR_PIN, INPUT);
-    pinMode(LED_PIN, OUTPUT);
     pinMode(BUZZER_PIN, OUTPUT);
     pinMode(SMOKE_PIN, INPUT);
 }

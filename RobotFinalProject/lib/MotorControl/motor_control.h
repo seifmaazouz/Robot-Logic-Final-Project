@@ -1,6 +1,9 @@
 #ifndef MOTOR_CONTROL_H
 #define MOTOR_CONTROL_H
 
+#define PWM_FREQ 5000
+#define PWM_RES 8
+
 enum Direction {
     STOP = 0,
     FORWARD = 1,
@@ -9,8 +12,8 @@ enum Direction {
     RIGHT = 4
 };
 
-void setMotorSpeed(int leftSpeed, int rightSpeed);
-void move(Direction direction);
+void setMotorsSpeed(int leftSpeed, int rightSpeed);
+void move(int speed, Direction direction);
 void moveForward();
 void moveBackward();
 void turnLeft();
