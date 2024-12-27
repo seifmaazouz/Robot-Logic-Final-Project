@@ -2,6 +2,9 @@
 #include "setup_config.h"
 #include "pins.h"
 
+BluetoothSerial SerialBT;
+String rec;
+
 void initPins() {
     // Motor pin configuration
     pinMode(MOTOR_LEFT_IN1, OUTPUT);
@@ -26,8 +29,24 @@ void initPins() {
     pinMode(LDR_PIN, INPUT);
     pinMode(BUZZER_PIN, OUTPUT);
     pinMode(SMOKE_PIN, INPUT);
+
+    analogReadResolution(12);
 }
 
 void calibrateIRSensors() {
     // TODO
+}
+
+void setupBluetooth() {
+        // Check if Bluetooth is available
+    #if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
+    #error Bluetooth is not enabled! Please run make menuconfig to and enable it
+    #endif
+
+    // Check Serial Port Profile
+    #if !defined(CONFIG_BT_SPP_ENABLED)
+    #error Serial Port Profile for Bluetooth is not available or not enabled. It is only available for the ESP32 chip.
+    #endif
+
+    SerialBT.begin(device_name);
 }
