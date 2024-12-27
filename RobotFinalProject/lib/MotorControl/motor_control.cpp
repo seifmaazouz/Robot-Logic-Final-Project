@@ -3,11 +3,13 @@
 #include "pins.h"
 
 void setupMotors() {
-    ledcSetup(MOTOR_LEFT_CHANNEL, PWM_FREQ, PWM_RES);
-    ledcAttachPin(MOTOR_LEFT_PWM, MOTOR_LEFT_CHANNEL);
+    // ledcSetup(MOTOR_LEFT_CHANNEL, PWM_FREQ, PWM_RES);
+    // ledcAttachPin(MOTOR_LEFT_PWM, MOTOR_LEFT_CHANNEL);
+    ledcAttachChannel(MOTOR_LEFT_PWM, PWM_FREQ, PWM_RES, MOTOR_LEFT_CHANNEL);
 
-    ledcSetup(MOTOR_RIGHT_CHANNEL, PWM_FREQ, PWM_RES);
-    ledcAttachPin(MOTOR_RIGHT_PWM, MOTOR_RIGHT_CHANNEL);
+    // ledcSetup(MOTOR_RIGHT_CHANNEL, PWM_FREQ, PWM_RES);
+    // ledcAttachPin(MOTOR_RIGHT_PWM, MOTOR_RIGHT_CHANNEL);
+    ledcAttachChannel(MOTOR_RIGHT_PWM, PWM_FREQ, PWM_RES, MOTOR_RIGHT_CHANNEL);
 
     stopMotors();
 }
@@ -17,8 +19,10 @@ void setupMotors() {
 // Backward: IN1 = LOW, IN2 = HIGH
 
 void setMotorsSpeed(int leftSpeed, int rightSpeed) {
-    ledcWrite(MOTOR_LEFT_CHANNEL, leftSpeed);
-    ledcWrite(MOTOR_RIGHT_CHANNEL, rightSpeed);
+    // ledcWrite(MOTOR_LEFT_CHANNEL, leftSpeed);
+    // ledcWrite(MOTOR_RIGHT_CHANNEL, rightSpeed);
+    ledcWriteChannel(MOTOR_LEFT_CHANNEL, leftSpeed);
+    ledcWriteChannel(MOTOR_RIGHT_CHANNEL, rightSpeed);
 }
 
 void move(int leftSpeed, int rightspeed, Direction direction) {
