@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include "motor_control.h"
 #include "pins.h"
+#include "setup_config.h"
 
 void setupMotors() {
     ledcSetup(MOTOR_LEFT_CHANNEL, PWM_FREQ, PWM_RES);

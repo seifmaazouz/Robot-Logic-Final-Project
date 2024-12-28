@@ -13,29 +13,32 @@ void followLine() {
     }
 
   // > black_thresh --> black line  
-  if (irSensorLeftReading > black_thresh && irSensorRightReading > black_thresh && irSensorCenterReading > black_thresh) {
+  if (irSensorLeftReading > black_thresh_left && irSensorRightReading > black_thresh_right && irSensorCenterReading > black_thresh_center) {
         stopMotors();
+        delay(50);
   }
-  else if (irSensorLeftReading > black_thresh && irSensorRightReading < black_thresh) {
-    while (irSensorCenterReading < black_thresh) {
-        move(0, default_right_PWM, FORWARD);
+  else if (irSensorLeftReading > black_thresh_left && irSensorRightReading < black_thresh_right) {
+    while (irSensorCenterReading < black_thresh_center && rec == "LF") {
+        move(default_left_lt_PWM-20, default_right_lt_PWM, FORWARD);
         readInfraredSensors();
     }
-    if (irSensorCenterReading > black_thresh) {
-        move(default_left_PWM, default_right_PWM, LEFT);
+    if (irSensorCenterReading > black_thresh_center) {
+        move(default_left_lt_PWM, default_right_lt_PWM, LEFT);
+        delay(50);
     }
   }
-  else if (irSensorLeftReading < black_thresh && irSensorRightReading > black_thresh) {
-    while (irSensorCenterReading < black_thresh) {
-        move(default_left_PWM, 0, FORWARD);
+  else if (irSensorLeftReading < black_thresh_left && irSensorRightReading > black_thresh_right) {
+    while (irSensorCenterReading < black_thresh_center && rec == "LF") {
+        move(default_left_lt_PWM, default_right_lt_PWM-20, FORWARD);
         readInfraredSensors();
     }
-    if (irSensorCenterReading > black_thresh) {
-        move(default_left_PWM, default_right_PWM, RIGHT);
+    if (irSensorCenterReading > black_thresh_center) {
+        move(default_left_lt_PWM, default_right_lt_PWM, RIGHT);
+        delay(50);
     }
   }
   else {
-    move(default_left_PWM, default_right_PWM, FORWARD);
+    move(default_left_lt_PWM, default_right_lt_PWM, FORWARD);
   }
 }
 

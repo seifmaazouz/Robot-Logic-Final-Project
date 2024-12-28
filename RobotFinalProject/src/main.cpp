@@ -6,11 +6,14 @@
 #include "line_follower.h"
 #include "maze_solver.h"
 
+void playBuzzer(int frequency);
+
 void setup() {
   initPins();
   setupMotors();
   Serial.begin(115200);
   setupBluetooth();
+  // calibrateIRSensors();
 }
 
 void loop() {
@@ -20,22 +23,42 @@ void loop() {
 
   // Feature: scared of darkness
   if (lightSensorReading == 1) {
-    tone(BUZZER_PIN, 3000);
+    ledcWriteTone(BUZZER_CHANNEL, 3000);
   }
-  
 
-  // Feature: smoke detection
+    // Feature: smoke detection
   else if (smokeSensorReading > smoke_thresh) {
-    tone(BUZZER_PIN, 3500);
+    ledcWriteTone(BUZZER_CHANNEL, 3500);
   }
 
-else if (ultrasonicFrontDistance < MAX_DISTANCE) {
-        int frequency = map(ultrasonicFrontDistance, 0, MAX_DISTANCE, 2000, 500);
-        tone(BUZZER_PIN, frequency);
-} else {
-    noTone(BUZZER_PIN);
-}
+  else if (ultrasonicFrontDistance < MAX_DISTANCE) {
+    // int frequency = 0;
+    int frequency = map(ultrasonicFrontDistance, 3, MAX_DISTANCE, 3000, 500);
     
+    // Prevent extreme frequency values (e.g., below 500 Hz)
+    if (frequency < 500) {
+        frequency = 500;
+    }
+    
+    // Play the mapped tone based on the distance
+    playBuzzer(frequency);
+
+    // if(ultrasonicFrontDistance <= 10) {
+    //   stopMotors();
+    // }
+    if(ultrasonicFrontDistance <= 10) {
+        stopMotors();
+        delay(200);
+        move(default_left_PWM, default_right_PWM, RIGHT);
+        delay(200);
+        stopMotors();
+        return;
+      }
+  } 
+  else {
+    ledcWriteTone(BUZZER_CHANNEL, 0);
+  }
+
 
   if (SerialBT.available()) {
     rec = (String)SerialBT.readStringUntil('\n');
@@ -44,12 +67,16 @@ else if (ultrasonicFrontDistance < MAX_DISTANCE) {
         stopMotors();
     }
     else if (rec == "R") {
-        move(default_left_PWM, default_right_PWM, RIGHT);
+        move(default_left_PWM-20, default_right_PWM, RIGHT);
     }
     else if (rec == "L") {
-      move(default_left_PWM, default_right_PWM, LEFT);
+      move(default_left_PWM, default_right_PWM-20, LEFT);
     }
     else if (rec == "F") {
+      //   if(ultrasonicFrontDistance <= 10) {
+      //   stopMotors();
+      //   return;
+      // }
       move(default_left_PWM, default_right_PWM, FORWARD);
     }
     else if (rec == "B") {
@@ -65,7 +92,6 @@ else if (ultrasonicFrontDistance < MAX_DISTANCE) {
   }
 
   // readInfraredSensors();
-
   // Serial.print (irSensorLeftReading);
   // Serial.print (" ");
   // Serial.print (irSensorCenterReading);
@@ -75,6 +101,25 @@ else if (ultrasonicFrontDistance < MAX_DISTANCE) {
 
   // Serial.print("Right Distance: ");
   // Serial.println(ultrasonicRightDistance);
-  // Serial.print("Front Distance: ");
-  // Serial.println(ultrasonicFrontDistance);
+  Serial.print("Front Distance: ");
+  Serial.println(ultrasonicFrontDistance);
+
+  Serial.println("REC: " + rec);
+}
+
+void playBuzzer(int frequency) {
+    static unsigned long lastTime = 0;
+    static bool buzzerState = false;
+    int period = 1000000 / frequency;
+
+    if (micros() - lastTime >= period / 2) {
+        lastTime = micros();
+        buzzerState = !buzzerState;
+        if(buzzerState) {
+            ledcWriteTone(BUZZER_CHANNEL, frequency);
+        }
+        else {
+            ledcWriteTone(BUZZER_CHANNEL, 0);
+        }
+    }
 }

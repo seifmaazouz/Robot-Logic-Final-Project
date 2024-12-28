@@ -14,6 +14,7 @@ float smokeSensorReading = 0.0;
 // Ultrasonic ultrasonicSensorRight(ULTRASONIC_RIGHT_TRIGGER, ULTRASONIC_RIGHT_ECHO);
 // Ultrasonic ultrasonicSensorFront(ULTRASONIC_FRONT_TRIGGER, ULTRASONIC_FRONT_ECHO);
 NewPing ultrasonicSensorFront(ULTRASONIC_FRONT_TRIGGER, ULTRASONIC_FRONT_ECHO, MAX_DISTANCE);
+NewPing ultrasonicSensorRight(ULTRASONIC_RIGHT_TRIGGER, ULTRASONIC_RIGHT_ECHO, MAX_DISTANCE);
 
 // Function to read all sensors
 void readAllSensors() {
@@ -34,39 +35,18 @@ unsigned long lastReadTime = 0;
 unsigned long readInterval = 50;
 
 void readUltrasonicSensors() {
-    // // ultrasonicRightDistance = ultrasonicSensorRight.read();
-    // ultrasonicFrontDistance = ultrasonicSensorFront.read();
-    // delay(50);
-
     ultrasonicFrontDistance = ultrasonicSensorFront.ping_cm();
+    // ultrasonicRightDistance = ultrasonicSensorRight.ping_cm();
 
-    if (ultrasonicFrontDistance > 0) {
-        // Valid reading, handle it (e.g., obstacle detected logic)
-    } else {
-        // No valid reading, handle error case
+    if (ultrasonicFrontDistance <= 0) {
         ultrasonicFrontDistance = MAX_DISTANCE;
     }
 
+    // if(ultrasonicRightDistance <= 0) {
+    //     ultrasonicRightDistance = MAX_DISTANCE;
+    // }
+
     delay(50);
-
-//        digitalWrite(ULTRASONIC_RIGHT_TRIGGER, LOW);
-//    delayMicroseconds(2);
-//    digitalWrite(ULTRASONIC_RIGHT_TRIGGER, HIGH);
-//    delayMicroseconds(10);
-//    digitalWrite(ULTRASONIC_RIGHT_TRIGGER, LOW);
-  
-//    duration = pulseIn(ULTRASONIC_RIGHT_ECHO, HIGH);
-  
-//    // Calculate the distance
-//    return duration * SOUND_SPEED/2;
-
-//    //  digitalWrite(ULTRASONIC_FRONT_TRIGGER, LOW);
-//   //  delayMicroseconds(2);
-//   //  digitalWrite(ULTRASONIC_FRONT_TRIGGER, HIGH);
-//   //  delayMicroseconds(10);
-//   //  digitalWrite(ULTRASONIC_FRONT_TRIGGER, LOW);
-
-
 }
 
 // Function to read LDR sensor

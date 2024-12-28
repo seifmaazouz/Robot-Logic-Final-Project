@@ -1,9 +1,13 @@
 #include <Arduino.h>
 #include "setup_config.h"
 #include "pins.h"
+// #include "sensors_reader.h"
 
 BluetoothSerial SerialBT;
 String rec;
+// int black_thresh_left = 1000;
+// int black_thresh_center = 1000;
+// int black_thresh_right = 1000;
 
 void initPins() {
     // Motor pin configuration
@@ -29,13 +33,44 @@ void initPins() {
     pinMode(LDR_PIN, INPUT);
     pinMode(BUZZER_PIN, OUTPUT);
     pinMode(SMOKE_PIN, INPUT);
+    ledcSetup(BUZZER_CHANNEL, PWM_FREQ, PWM_RES);
+    ledcAttachPin(BUZZER_PIN, BUZZER_CHANNEL);
 
     analogReadResolution(12);
 }
 
-void calibrateIRSensors() {
-    // TODO
-}
+// void calibrateIRSensors() {
+//     int minLeft = 1023, maxLeft = 0;
+//     int minRight = 1023, maxRight = 0;
+//     int minCenter = 1023, maxCenter = 0;
+
+//     Serial.println("Calibrating sensors... Move the robot over the line and press any key to stop.");
+//     while (!Serial.available()) {
+//         readInfraredSensors();
+
+//         // Track min and max values for each sensor
+//         minLeft = min(minLeft, irSensorLeftReading);
+//         maxLeft = max(maxLeft, irSensorLeftReading);
+        
+//         minRight = min(minRight, irSensorRightReading);
+//         maxRight = max(maxRight, irSensorRightReading);
+        
+//         minCenter = min(minCenter, irSensorCenterReading);
+//         maxCenter = max(maxCenter, irSensorCenterReading);
+//     }
+
+//     // Calculate thresholds as midpoints
+//     black_thresh_left = (minLeft + maxLeft) / 2;
+//     black_thresh_right = (minRight + maxRight) / 2;
+//     black_thresh_center = (minCenter + maxCenter) / 2;
+
+//     Serial.println("Calibration complete!");
+//     Serial.print("Left Threshold: "); Serial.println(black_thresh_left);
+//     Serial.print("Right Threshold: "); Serial.println(black_thresh_right);
+//     Serial.print("Center Threshold: "); Serial.println(black_thresh_center);
+
+//     Serial.read(); // Clear the input buffer
+// }
 
 void setupBluetooth() {
         // Check if Bluetooth is available

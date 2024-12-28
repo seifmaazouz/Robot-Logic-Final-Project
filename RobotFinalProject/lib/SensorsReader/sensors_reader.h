@@ -19,6 +19,7 @@ extern float lightSensorReading;
 extern float smokeSensorReading;
 
 extern NewPing ultrasonicSensorFront;
+extern NewPing ultrasonicSensorRight;
 // extern Ultrasonic ultrasonicSensorFront;
 // extern Ultrasonic ultrasonicSensorRight;
 
