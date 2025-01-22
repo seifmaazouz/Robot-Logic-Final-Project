@@ -41,7 +41,7 @@ Each team member contributed to different aspects of the project:
    Hardware development, including designing a custom PCB using **Eagle**.
 
 - **Asser Hanafy**  
-   Created the Bluetooth control app using **MIT App Inventor**, enabling manual control and mode selection.
+   Created the Bluetooth control app using **MIT App Inventor**, enabling manual control and mode selection (line follower / maze solver).
 
 ## Hardware
 The robot incorporates the following components:
