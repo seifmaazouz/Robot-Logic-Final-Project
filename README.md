@@ -46,7 +46,7 @@ Each team member contributed to different aspects of the project:
 ## Hardware
 The robot incorporates the following components:
 
-- **ESP32** (Main control and processing unit)  
+- **ESP32** (main control and processing unit)  
 - **DC Motors** (with encoders for precise movement)  
 - **IR Sensors** (for line following)  
 - **Ultrasonic Sensors** (for obstacle detection)  
